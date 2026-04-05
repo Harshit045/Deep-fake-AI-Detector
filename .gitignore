@@ -1,0 +1,18 @@
+# Python & MLflow environments
+env/
+__pycache__/
+*.pyc
+mlruns/
+
+# Frontend dependencies
+forensic-frontend/node_modules/
+forensic-frontend/dist/
+
+# Heavy Datasets (Do not push raw data to GitHub)
+dataset/
+.DS_Store
+
+# Ignore loose test images in the root folder
+/*.jpg
+/*.jpeg
+/*.png

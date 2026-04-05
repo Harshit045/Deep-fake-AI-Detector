@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forensic AI</title>
+</head>
+<body style="font-family:Arial">
+
+<h2>AI Image Forensic System</h2>
+
+<input type="file" id="file">
+<br><br>
+<button onclick="analyze()">Analyze</button>
+
+<pre id="result"></pre>
+
+<script>
+async function analyze() {
+  const file = document.getElementById("file").files[0];
+  if (!file) return alert("Select image");
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch("http://127.0.0.1:5000/analyze", {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  document.getElementById("result").textContent =
+    JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
