@@ -29,9 +29,11 @@ export default function UploadPanel({ setResult, setScanning }) {
 
     const formData = new FormData();
     formData.append("file", file);
+    
+    const API_URL = import.meta.env.DEV ? "http://127.0.0.1:5000/analyze" : "/analyze";
 
     try {
-      const res = await axios.post("/analyze", formData);
+      const res = await axios.post(API_URL, formData);
       setResult(res.data);
     } catch (err) {
       alert("Backend not running / API error!");

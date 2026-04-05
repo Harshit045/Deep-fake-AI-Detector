@@ -7,6 +7,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 import os
 import io
+import mlflow
 
 app = Flask(__name__, static_folder='static', static_url_path='/')
 CORS(app)
@@ -225,6 +226,17 @@ def analyze():
     else:
         verdict = "SUSPICIOUS"
         reason = "Scores are ambiguous. Minor edits or filters might be present."
+
+    # --- MLOps: Log Tracking Data to MLflow ---
+    try:
+        mlflow.set_experiment("DeepFake_Production_Logs")
+        with mlflow.start_run():
+            mlflow.log_param("metadata_source", metadata)
+            mlflow.log_metric("deepfake_score", float(deepfake_score))
+            mlflow.log_metric("ai_artifact_score", float(ai_score))
+            mlflow.log_param("final_verdict", verdict)
+    except Exception as e:
+        print("MLOps Logging Error:", e)
 
     return jsonify({
         "deepfake_score": round(deepfake_score, 3),
