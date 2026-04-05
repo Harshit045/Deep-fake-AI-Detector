@@ -3,7 +3,7 @@ import StatusBar from "./components/StatusBar";
 import UploadPanel from "./components/UploadPanel";
 import Scanner from "./components/Scanner";
 import ForensicPanel from "./components/ForensicPanel";
-import LogsPanel from "./components/LogsPanel";
+import LogsPanel from "./components/logspanel";
 
 export default function App() {
   const [result, setResult] = useState(null);
